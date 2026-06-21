@@ -1,0 +1,56 @@
+<script>
+     const projects = document.querySelector('.projects');
+
+    document.getElementById('nextSlide').addEventListener('click', () => {
+
+        projects.scrollBy({
+            left: 320,
+            behavior: 'smooth'
+        });
+
+    });
+
+    document.getElementById('prevSlide').addEventListener('click', () => {
+
+        projects.scrollBy({
+            left: -320,
+            behavior: 'smooth'
+        });
+
+    });
+
+    document.querySelectorAll('.project').forEach(card => {
+
+        card.addEventListener('mousemove', e => {
+
+            const rect = card.getBoundingClientRect();
+
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const rotateY = (x - rect.width / 2) / 20;
+            const rotateX = -(y - rect.height / 2) / 20;
+
+            card.style.transform =
+                `perspective(1000px)
+        rotateY(${rotateY}deg)
+        rotateX(${rotateX}deg)`;
+
+        });
+
+        card.addEventListener('mouseleave', () => {
+
+            card.style.transform =
+                'perspective(1000px) rotateY(0deg) rotateX(0deg)';
+
+        });
+
+    });
+
+    document.querySelectorAll('[data-link]').forEach(item => {
+        item.addEventListener('click', function () {
+            window.open(this.dataset.link, '_blank');
+        });
+    });
+
+</script>
